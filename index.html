@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tony's Portfolio</title>
+    <style>
+        /* 全域樣式設定 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 導覽列 */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 25px;
+        }
+
+        .nav-links a {
+            font-weight: 500;
+            color: #4a5568;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3182ce;
+        }
+
+        /* 區塊共用樣式 */
+        section {
+            padding: 100px 20px 80px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            text-align: center;
+            color: #2d3748;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 4px;
+            background-color: #3182ce;
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* 首頁 / 個人簡介區塊 */
+        #about {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 80vh;
+            gap: 40px;
+        }
+
+        .about-content {
+            flex: 1;
+        }
+
+        .about-content h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            color: #1a202c;
+        }
+
+        .about-content h3 {
+            font-size: 1.5rem;
+            color: #3182ce;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            font-size: 1.1rem;
+            color: #4a5568;
+            margin-bottom: 30px;
+        }
+
+        .about-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* 佔位大頭貼樣式，之後可換成自己的照片 */
+        .avatar-placeholder {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background-color: #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #718096;
+            border: 5px solid #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* 作品集區塊 */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .work-card {
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .work-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+
+        .work-img-placeholder {
+            height: 200px;
+            background-color: #edf2f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            font-weight: 500;
+        }
+
+        .work-info {
+            padding: 20px;
+        }
+
+        .work-info h3 {
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .work-info p {
+            color: #718096;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 聯絡區塊 */
+        #contact {
+            text-align: center;
+            background-color: #fff;
+            max-width: 100%;
+            padding-bottom: 100px;
+        }
+
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            margin-bottom: 40px;
+            color: #4a5568;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #3182ce;
+            color: #fff;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            box-shadow: 0 4px 6px rgba(49, 130, 206, 0.3);
+        }
+
+        .btn:hover {
+            background-color: #2b6cb0;
+        }
+
+        /* 頁尾 */
+        footer {
+            background-color: #1a202c;
+            color: #a0aec0;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        /* 響應式 RWD 調整 */
+        @media (max-width: 768px) {
+            #about {
+                flex-direction: column-reverse;
+                text-align: center;
+                padding-top: 140px;
+            }
+            .nav-links {
+                display: none; /* 簡化手機版，暫時隱藏選單 */
+            }
+            .about-content h1 {
+                font-size: 2.2rem;
+            }
+            .avatar-placeholder {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">Tony.D</div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#work">My Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="about">
+        <div class="about-content">
+            <h1>Hi, I'm Tony</h1>
+            <h3>Software Engineer / Graphics Enthusiast</h3>
+            <p>
+                這裡可以寫一段簡單的自我介紹。例如：專注於低階渲染與圖形學技術，喜歡用程式碼創造視覺效果。熱衷於探索 C++、Vulkan 以及演算法的世界。
+            </p>
+            <a href="#work" class="btn">查看我的作品</a>
+        </div>
+        <div class="about-img">
+            <div class="avatar-placeholder">[ Your Photo ]</div>
+        </div>
+    </section>
+
+    <section id="work" style="background-color: #f7fafc; max-width: 100%;">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <h2 class="section-title">My Work</h2>
+            <div class="work-grid">
+                
+                <div class="work-card">
+                    <div class="work-img-placeholder">Project Screenshot 1</div>
+                    <div class="work-info">
+                        <h3>Vulkan Rendering Engine</h3>
+                        <p>一個基於 Vulkan API 開發的渲染引擎，支援 PBR 物理光照以及基礎的光線追蹤效果。</p>
+                        <div class="tags">
+                            <span class="tag">C++</span>
+                            <span class="tag">Vulkan</span>
+                            <span class="tag">GLSL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-img-placeholder">Project Screenshot 2</div>
+                    <div class="work-info">
+                        <h3>Huiluna 2D Game Engine</h3>
+                        <p>獨立開發的 2D 遊戲引擎，內建基礎的物理碰撞與精靈圖渲染系統。</p>
+                        <div class="tags">
+                            <span class="tag">C++</span>
+                            <span class="tag">OpenGL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="work-card">
+                    <div class="work-img-placeholder">Project Screenshot 3</div>
+                    <div class="work-info">
+                        <h3>Edge AI & Gaze Tracking</h3>
+                        <p>結合 OpenVINO 與 Intel RealSense 硬體，進行即時的視線估測與物件追蹤系統。</p>
+                        <div class="tags">
+                            <span class="tag">Python</span>
+                            <span class="tag">OpenVINO</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-info">
+                <p>如果你對我的作品有興趣，或者有任何合作機會，歡迎隨時透過 Email 跟我聯絡！</p>
+            </div>
+            <a href="mailto:your.email@example.com" class="btn">傳送 Email</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Tony Dai. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
