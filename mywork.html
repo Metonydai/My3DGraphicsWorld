@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Work - Tony's Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.7;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            z-index: 1000;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2d3748;
+            text-decoration: none;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #3182ce;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .back-link:hover {
+            color: #2b6cb0;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 40px auto 80px auto;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        /* ------------------- 1. 文章列表頁樣式 ------------------- */
+        .page-title {
+            font-size: 2.2rem;
+            color: #1a202c;
+            margin-bottom: 25px;
+            font-weight: 700;
+        }
+
+        /* 寫點科普風格：分類 Tabs 標籤列 */
+        .category-tabs {
+            display: flex;
+            gap: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+            margin-bottom: 35px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: #718096;
+            cursor: pointer;
+            padding: 6px 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: #3182ce;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #3182ce;
+        }
+
+        /* 部落格條列式文章卡片 */
+        .blog-post-card {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .blog-post-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+            border-left: 4px solid #3182ce;
+        }
+
+        .post-meta {
+            font-size: 0.85rem;
+            color: #a0aec0;
+            margin-bottom: 8px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .post-title-link {
+            font-size: 1.6rem;
+            color: #2d3748;
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 12px;
+            transition: color 0.2s;
+        }
+
+        .post-title-link:hover {
+            color: #3182ce;
+        }
+
+        /* 核心：透過 CSS line-clamp 限制只顯示前三行 */
+        .post-excerpt {
+            color: #4a5568;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .more-link {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .more-link:hover {
+            text-decoration: underline;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .tag {
+            background-color: #ebf8ff;
+            color: #2b6cb0;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* ------------------- 2. 文章詳細內頁樣式 ------------------- */
+        .project-header {
+            margin-bottom: 30px;
+        }
+
+        #project-title {
+            font-size: 2.5rem;
+            color: #1a202c;
+            margin-bottom: 15px;
+        }
+
+        .main-image-placeholder {
+            width: 100%;
+            height: 350px;
+            background-color: #edf2f7;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a0aec0;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .project-body {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+            font-size: 1.1rem;
+            color: #2d3748;
+        }
+
+        .project-body h2 {
+            font-size: 1.6rem;
+            color: #1a202c;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        .project-body p {
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        footer {
+            background-color: #1a202c;
+            color: #a0aec0;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">Tony.D</a>
+            <a href="mywork.html" id="nav-back-btn" class="back-link">← 所有作品</a>
+        </nav>
+    </header>
+
+    <div class="container" id="main-content-view">
+        </div>
+
+    <footer>
+        <p>&copy; 2026 Tony Dai. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 1. 統一管理的核心資料庫（加入 category 用於分類過濾）
+        const articleDatabase = [
+            {
+                id: "edge-ai-tracking",
+                title: "Edge AI & Gaze Tracking",
+                date: "2026-04-10",
+                category: "ai",
+                categoryName: "邊緣運算 (Edge AI)",
+                tags: ["Python", "OpenVINO"],
+                imgText: "🤖 Real-Time Tracking Visualization",
+                excerpt: "本項目聚焦於邊緣運算（Edge AI）與 3D 空間互動，旨在建立一個極低延遲的即時視線估測（Gaze Estimation）與物件追蹤系統。結合了 Intel RealSense 深度攝影機獲取高精度的 3D 空間點雲數據。",
+                content: `
+                    <h2>項目概述</h2>
+                    <p>本項目聚焦於邊緣運算（Edge AI）與 3D 空間互動，旨在建立一個極低延遲的即時視線估測（Gaze Estimation）與物件追蹤系統。</p>
+                    <h2>系統架構與硬體整合</h2>
+                    <p>我們結合了 Intel RealSense 深度攝影機獲取高精度的 3D 空間點雲數據，並使用 Intel OpenVINO 工具集對人臉特徵點偵測模型進行量化與硬體加速，使系統得以在低功耗的邊緣裝置上維持 60 FPS 以上的即時推論速度。</p>
+                `
+            },
+            {
+                id: "vulkan-engine",
+                title: "Vulkan Rendering Engine",
+                date: "2026-03-15",
+                category: "graphics",
+                categoryName: "圖形渲染 (Graphics)",
+                tags: ["C++", "Vulkan", "GLSL"],
+                imgText: "🎬 Vulkan Engine Showcase Demo",
+                excerpt: "這是一個基於 Vulkan API 從零開始建構的現代圖形渲染引擎。開發本項目的核心目的在於掌握低階圖形 API 的管線控制、記憶體手動管理以及現代 GPU 驅動（GPU-driven）的渲染架構。",
+                content: `
+                    <h2>項目概述</h2>
+                    <p>這是一個基於 Vulkan API 從零開始建構的現代圖形渲染引擎。開發本項目的核心目的在於掌握低階圖形 API 的管線控制、記憶體手動管理以及現代 GPU 驅動（GPU-driven）的渲染架構。</p>
+                    <h2>核心技術特點</h2>
+                    <p>項目目前已成功實作基於物理的渲染（PBR）管線，完整支援 Cook-Torrance BRDF 微表面模型。透過預計算的環境貼圖實作了高質感的影像照明（IBL）。</p>
+                    <p>此外，本項目整合了 Vulkan Ray Tracing 擴充功能（VK_KHR_ray_tracing_pipeline），成功在獨立 Pass 中運行基礎的光線追蹤陰影與反射效果，大幅提升了場景的真實感。</p>
+                `
+            },
+            {
+                id: "huiluna-game-engine",
+                title: "Huiluna 2D Game Engine",
+                date: "2026-01-20",
+                category: "graphics",
+                categoryName: "圖形渲染 (Graphics)",
+                tags: ["C++", "OpenGL"],
+                imgText: "🎮 Huiluna Engine Editor View",
+                excerpt: "Huiluna 是一款獨立設計的 2D 遊戲引擎，採用 C++ 撰寫，底層渲染採用 OpenGL。本項目的目標是為 2D 平台遊戲提供高效、輕量化且易於擴充的底層開發架構。",
+                content: `
+                    <h2>項目概述</h2>
+                    <p>Huiluna 是一款獨立設計的 2D 遊戲引擎，採用 C++ 撰寫，底層渲染採用 OpenGL。本項目的目標是為 2D 平台遊戲提供高效、輕量化且易於擴充的底層開發架構。</p>
+                    <h2>實作核心功能</h2>
+                    <p><strong>1. 精靈渲染與動畫系統：</strong>內建高效的 Batch Renderer，大幅減少 Draw Call 次數，並支援 Sprite Sheet 剪裁與動態骨架過渡動畫。</p>
+                    <p><strong>2. 自研物理碰撞：</strong>基於 AABB（軸對齊包圍盒）與分離軸定理（SAT）實作了輕量化的碰撞偵測與反應系統。</p>
+                `
+            }
+        ];
+
+        // 解析網址參數
+        const urlParams = new URLSearchParams(window.location.search);
+        const projectKey = urlParams.get('project');
+        const viewContainer = document.getElementById('main-content-view');
+        const navBackBtn = document.getElementById('nav-back-btn');
+
+        // 核心路由邏輯判斷
+        if (projectKey) {
+            // 【情況 A：有帶參數，顯示文章內頁】
+            navBackBtn.innerText = "← 所有作品";
+            navBackBtn.href = "mywork.html"; // 點擊返回列表頁
+            
+            const article = articleDatabase.find(p => p.id === projectKey);
+            if (article) {
+                renderArticleDetail(article);
+            } else {
+                renderError();
+            }
+        } else {
+            // 【情況 B：沒有參數，顯示「寫點科普」風文章列表頁】
+            navBackBtn.innerText = "← 返回首頁";
+            navBackBtn.href = "index.html"; // 點擊返回首頁
+            
+            // 排序資料（依日期最新最前）
+            articleDatabase.sort((a, b) => new Date(b.date) - new Date(a.date));
+            renderArticleList('all');
+        }
+
+        // 渲染列表頁面
+        function renderArticleList(currentCategory = 'all') {
+            let listHTML = `
+                <h1 class="page-title">My Work & Documentations</h1>
+                <div class="category-tabs">
+                    <button class="tab-btn ${currentCategory === 'all' ? 'active' : ''}" onclick="switchCategory('all')">全部作品</button>
+                    <button class="tab-btn ${currentCategory === 'graphics' ? 'active' : ''}" onclick="switchCategory('graphics')">圖形渲染</button>
+                    <button class="tab-btn ${currentCategory === 'ai' ? 'active' : ''}" onclick="switchCategory('ai')">邊緣運算</button>
+                </div>
+                <div id="posts-container">
+            `;
+
+            // 過濾分類
+            const filteredArticles = currentCategory === 'all' 
+                ? articleDatabase 
+                : articleDatabase.filter(p => p.category === currentCategory);
+
+            filteredArticles.forEach(post => {
+                const tagsHTML = post.tags.map(t => `<span class="tag">${t}</span>`).join('');
+                listHTML += `
+                    <article class="blog-post-card">
+                        <div class="post-meta">
+                            <span>📅 ${post.date}</span>
+                            <span>📁 ${post.categoryName}</span>
+                        </div>
+                        <a href="mywork.html?project=${post.id}" class="post-title-link">${post.title}</a>
+                        <div class="post-excerpt">${post.excerpt}</div>
+                        <a href="mywork.html?project=${post.id}" class="more-link">Read More →</a>
+                        <div class="tags">${tagsHTML}</div>
+                    </article>
+                `;
+            });
+
+            listHTML += `</div>`;
+            viewContainer.innerHTML = listHTML;
+        }
+
+        // 分類切換按鈕點擊事件
+        window.switchCategory = function(cat) {
+            renderArticleList(cat);
+        }
+
+        // 渲染詳細頁面
+        function renderArticleDetail(article) {
+            document.title = `${article.title} - Tony's Portfolio`;
+            viewContainer.innerHTML = `
+                <div class="project-header">
+                    <h1 id="project-title">${article.title}</h1>
+                    <div class="project-meta">
+                        <span>📅 最後更新：${article.date}</span>
+                        <span>📁 分類：${article.categoryName}</span>
+                    </div>
+                    <div class="tags">
+                        ${article.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                    </div>
+                </div>
+
+                <div class="main-image-placeholder">
+                    ${article.imgText}
+                </div>
+
+                <div class="project-body">
+                    ${article.content}
+                </div>
+            `;
+        }
+
+        // 錯誤處理
+        function renderError() {
+            viewContainer.innerHTML = `
+                <div class="error-message">
+                    <h1>找不到該作品文章</h1>
+                    <p>抱歉，您所尋找的文章不存在或已被移除。</p>
+                    <a href="mywork.html" class="btn" style="margin-top:20px;">返回作品列表</a>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
