@@ -1,0 +1,210 @@
+/* style.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: #f5f5f7;
+    color: #333;
+}
+
+/* 全域上方導覽列 */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #1a1a1a;
+    color: #fff;
+}
+
+.logo {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.nav-links a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 0.95rem;
+    transition: color 0.2s;
+}
+
+/* 當前作用中的導覽標籤高亮樣式 */
+.nav-links a.active {
+    color: #4caf50;
+    font-weight: bold;
+}
+/* 滑鼠懸停時的樣式 (改成橘色) */
+.nav-links a:hover {
+    color: #ff9800; /* 這裡的 #ff9800 是標準的質感橘色 */
+}
+
+/* 讓語系按鈕完美偽裝成普通的導覽標籤 */
+.nav-lang-btn {
+    background: none;        /* 抹去內建背景 */
+    border: none;            /* 抹去內建邊框 */
+    padding: 0;              /* 清空內建內邊距 */
+    
+    /* 🎨 以下微調：讓字體與其他標籤完全一致 */
+    color: inherit;          /* 繼承導覽列的文字顏色 */
+    font-size: 1rem;         /* 複製你原本導覽列的字體大小 */
+    font-weight: normal;     /* 預設維持正常粗細 */
+    cursor: pointer;         /* 游標移上去時一樣變成小手圖示 */
+    margin-left: 20px;       /* 與左邊的 Contact 保持舒適的呼吸間距 */
+    
+    transition: color 0.2s ease;
+}
+
+/*  當滑鼠 hover 悬停時，跟其他標籤一樣動態變成橘色！ */
+.nav-lang-btn:hover {
+    color: #ff9800;          /* 這是你之前選的漂亮橘色 */
+}
+
+/* 主要雙欄版面配置 (使用 Table 或 Flexbox 均可，此處確保穩定排版) */
+.page-layout {
+    display: flex;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 20px;
+    gap: 40px;
+}
+
+/* 左側文章區佔 75% 寬度 */
+.main-content {
+    flex: 3;
+    min-width: 0;
+}
+
+/* 右側分類欄佔 25% 寬度 */
+.sidebar {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    height: fit-content;
+}
+
+/* 文章內部區塊 */
+.blog-post {
+    background: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.post-title {
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+
+.post-meta {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+/* 側邊欄排版 */
+.sidebar-widget {
+    margin-bottom: 25px;
+}
+
+.sidebar-widget h3 {
+    margin-top: 0;
+    font-size: 1.05rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 8px;
+}
+
+.category-list, .featured-list {
+    list-style: none;
+    padding: 0;
+}
+
+.category-list li, .featured-list li {
+    margin: 12px 0;
+}
+
+.category-list a, .featured-list a {
+    text-decoration: none;
+    color: #555;
+}
+
+.category-list a:hover, .featured-list a:hover {
+    color: #4caf50;
+}
+
+.main-footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.85rem;
+    color: #777;
+    margin-top: 50px;
+}
+
+.blog-post-summary {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.summary-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.6rem;
+}
+
+.summary-title a {
+    color: #111;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.summary-title a:hover {
+    color: #4caf50;
+}
+
+.summary-body {
+    line-height: 1.6;
+    color: #444;
+    margin-bottom: 15px;
+}
+
+/* 繼續閱讀按鈕 */
+.read-more-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #1a1a1a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.read-more-btn:hover {
+    background-color: #4caf50;
+}
+
+/* 麵包屑導覽（返回按鈕） */
+.breadcrumb a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.breadcrumb a:hover {
+    color: #4caf50;
+}
+
+/* 響應式手機版面：自動轉為單欄 */
+@media (max-width: 768px) {
+    .page-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        width: 100%;
+    }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading Post...</title>
+    <link rel="stylesheet" href="style.css"> </head>
+<body>
+
+    <header id="header-container" class="main-header"></header>
+
+    <div class="page-layout">
+        <main class="main-content">
+            <article class="blog-post">
+                <nav class="breadcrumb"><a href="mywork.html">← Back to Mywork List</a></nav>
+                <h1 class="post-title" id="post-dynamic-title" style="margin-top: 15px;"></h1>
+                <p class="post-meta" id="post-dynamic-meta"></p>
+                <hr>
+                
+                <div class="post-body" id="post-dynamic-body"></div>
+            </article>
+        </main>
+        <aside id="sidebar-container" class="sidebar"></aside>
+    </div>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 Tony Dai. All rights reserved.</p>
+    </footer>
+
+    <script src="common.js"></script>
+    <script src="projects.js"></script>
+    <script>
+        // 頁面一載入，立刻啟動核心任意門邏輯
+        document.addEventListener("DOMContentLoaded", async () => {
+            // 1. 從網址列抓取 ?id=... 的參數
+            const urlParams = new URLSearchParams(window.location.search);
+            const postId = urlParams.get('id'); // 例如拿到 "ray-tracing"
+
+            if (!postId) {
+                document.getElementById("post-dynamic-body").innerHTML = "<p>文章 ID 錯誤！</p>";
+                return;
+            }
+
+            // 2. 載入全站共用的組件 (因為現在人在根目錄，最後一個引數不用帶 true 了！)
+            loadComponent("header-container", "header.html", () => {
+                const activeNav = document.getElementById("nav-mywork");
+                if (activeNav) activeNav.classList.add("active");
+                setupLanguageSwitcher();
+            });
+
+            loadComponent("sidebar-container", "sidebar.html", () => {
+                initSidebar("Articles/"); 
+            });
+
+            // 3. 魔術核心：去 Articles/ 資料夾抓取「那一篇純內文 HTML 檔案」
+            try {
+                const postResponse = await fetch(`Articles/post-${postId}.html`);
+                if (postResponse.ok) {
+                    const pureBodyHtml = await postResponse.text();
+                    // 刷入內文
+                    document.getElementById("post-dynamic-body").innerHTML = pureBodyHtml;
+
+                    updateGlobalLanguageDOM();
+                } else {
+                    document.getElementById("post-dynamic-body").innerHTML = "<p>文章檔案不存在！</p>";
+                }
+            } catch (e) { console.error(e); }
+
+            // 4. 撈取 projects.js 資料庫來動態填入標題、日期、分類與 SEO 分頁名稱
+            if (window.GLOBAL_PROJECTS) {
+                const project = window.GLOBAL_PROJECTS.find(p => p.id === postId);
+                if (project) {
+                    document.title = `${getLangText(project.title)} - My 3D Graphics World`;
+                    document.getElementById("post-dynamic-title").textContent = getLangText(project.title);
+                    document.getElementById("post-dynamic-meta").textContent = `Date: ${project.date} | Category: ${getLangText(project.category)}`;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
