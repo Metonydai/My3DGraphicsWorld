@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Loading Post...</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <link rel="stylesheet" href="style.css"> 
+    <script src="common.js"></script>
+    <script src="projects.js"></script>
+    <script id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js">
+    </script>
+</head>
+
 <body>
 
     <header id="header-container" class="main-header"></header>
@@ -27,8 +34,6 @@
         <p>&copy; 2026 Tony Dai. All rights reserved.</p>
     </footer>
 
-    <script src="common.js"></script>
-    <script src="projects.js"></script>
     <script>
         // 頁面一載入，立刻啟動核心任意門邏輯
         document.addEventListener("DOMContentLoaded", async () => {
@@ -63,6 +68,10 @@
                     updateGlobalLanguageDOM();
                 } else {
                     document.getElementById("post-dynamic-body").innerHTML = "<p>文章檔案不存在！</p>";
+                }
+
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise(); 
                 }
             } catch (e) { console.error(e); }
 

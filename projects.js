@@ -5,59 +5,24 @@ const CURRENT_LANG = 'en';
 
 var GLOBAL_PROJECTS = [
     {
-        id: "ray-tracing",
-        date: "2026-03-15",
+        id: "games202-homework2",
+        date: "2026-06-25",
         featured: true,
-        imgText: "Vulkan PBR System Screenshot",
+        imgText: "games202-homework2",
+        imgSrc: "assets/GAMES202_Homework2.png",
         title: {
-            en: "Ray Tracing",
-            zh: "Ray Tracing"
+            en: "Games202-homework2-PRT",
+            zh: "Games202-homework2-PRT"
         },
         description: {
-            en: "Focuses on the step-by-step evolution from the initial version to the final result, covering rendering pipeline architecture, descriptor set management, and the reasons behind performance optimizations.",
-            zh: "主要集中分享「從最初版本，一步步到最後成果」的過程，會涉及渲染管線、描述符集管理，以及效能改動的原因。"
+            en: "PRT-",
+            zh: "PRT-"
         },
         category: {
-            en: "Vulkan",
-            zh: "Vulkan"
+            en: "GAMES202",
+            zh: "GAMES202"
         }
     },
-    {
-        id: "huiluna-game-engine",
-        date: "2026-01-20",
-        featured: false,
-        imgText: "Ghibli Rendering Style Research",
-        title: {
-            en: "Creating 2D Ghibli-Style Trees and Geometric Effects in 3D",
-            zh: "用 3D 製作 2D 吉卜力風格樹木與幾何特效"
-        },
-        description: {
-            en: "Replicating 2D style in 3D isn't just about using a Toon Shader. To eliminate the 3D 'volumetric' look, you must start by modifying the 3D object's vertex normals and geometry shapes...",
-            zh: "用 3D 來仿造 2D 風格，單單使用 Toon Shader 是「治標不治本」，要消除 3D 物件的立體感，就要從 3D 物件的頂點法線與形體下手……"
-        },
-        category: {
-            en: "Blender / DCC",
-            zh: "Blender / DCC"
-        }
-    },
-    {
-        id: "blender-do-it",
-        date: "2026-04-10",
-        featured: true,
-        imgText: "Eevee Sci-Fi Scene Compositing",
-        title: {
-            en: "Crafting Sci-Fi Scenes with Eevee and After Effects | Workflow",
-            zh: "用 Eevee 與 After Effect 製作科幻場景 | 流程分享"
-        },
-        description: {
-            en: "Creating a sci-fi post-apocalyptic cyberpunk city animation loop using Blender Eevee and After Effects, experimenting with integrating Edge AI spatial computing into the DCC production pipeline.",
-            zh: "用 Blender Eevee 配合 After effects 創作科幻後末日秩序城市背景動圖，嘗試加入 Edge AI 空間運算到製作過程中。"
-        },
-        category: {
-            en: "Blender / DCC",
-            zh: "Blender / DCC"
-        }
-    }
 ];
 
 // 語系防呆抓取函式

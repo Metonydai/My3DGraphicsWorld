@@ -55,7 +55,7 @@
         <div style="max-width: 1200px; margin: 0 auto; padding: 20px 0;">
             
             <div class="section-intro">
-                <h2>Articles | Work Sharing | Blender Research</h2>
+                <h2>Articles | Work Sharing</h2>
                 <p>Tony's Original Technical Notes | Updated Periodically</p>
             </div>
 
@@ -74,7 +74,7 @@
             <p style="color: #4a5568; margin-bottom: 30px;">
                 If you are interested in my work or have any cooperation opportunities, feel free to contact me via email!
             </p>
-            <a href="mailto:your.email@example.com" class="btn">Send Email</a>
+            <a href="mailto:kusuje@gmail.com" class="btn">Send Email</a>
         </div>
     </section>
 
@@ -108,7 +108,7 @@
                     gridContainer.innerHTML += `
                         <a href="post-loader.html?id=${project.id}" class="work-card">
                             <div class="work-img-box">
-                                <div>${project.imgText}</div>
+                                <img src="${project.imgSrc}" alt="${project.imgText}" class="work-card-img" style="max-width: auto; height: 100%;">
                             </div>
                             <div class="work-info">
                                 <h3>${titleText}</h3>
@@ -121,31 +121,6 @@
             }
 
 
-            const listContainer = document.getElementById("mywork-list-container");
-            if (listContainer && displayProjects) {
-                listContainer.innerHTML = ""; // 先清空舊內容
-                
-                if (displayProjects.length === 0) {
-                    listContainer.innerHTML = `<p>No articles found under "${categoryFilter}".</p>`;
-                } else {
-                    displayProjects.forEach(project => {
-                        const titleText = getLangText(project.title);
-                        const descText = getLangText(project.description);
-                        const catText = getLangText(project.category);
-
-                        listContainer.innerHTML += `
-                            <article class="blog-post-summary" style="margin-bottom: 30px;">
-                                <h2 class="summary-title"><a href="post-loader.html?id=${project.id}">${titleText}</a></h2>
-                                <p class="post-meta">Date: ${project.date} | Category: ${catText}</p>
-                                <div class="summary-body">
-                                    <p>${descText}</p>
-                                </div>
-                                <a href="post-loader.html?id=${project.id}" class="read-more-btn">Read More →</a>
-                            </article>
-                        `;
-                    });
-                }
-            }
         });
     </script>
 </body>

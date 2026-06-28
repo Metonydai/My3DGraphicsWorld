@@ -1,0 +1,67 @@
+<div class="lang-en">
+    <p>  
+    <a href="Games202/HW2/index.html" target="_blank" rel="noopener noreferrer">
+        <img src="assets/GAMES202_Homework2.png" alt="GAMES202_Homework2" title="GAMES202_Homework2" style="max-width: 100%; height: auto;">
+    </a>
+    <h2>WebGL Precomputed Radiance Transfer (PRT)</h2>
+    
+    <section style="margin-bottom: 25px;">
+        <h2>Introduction</h2>
+        <p>In this project, we implemented a real-time shading system based on Precomputed Radiance Transfer (PRT). This technique allows us to achieve realistic soft shadows and global illumination from low-frequency environment lighting at interactive frame rates.</p>
+    </section>
+
+    <section style="margin-bottom: 25px;">
+        <h2>Rendering Equation</h2>
+        <p>
+            $$L_{o}(p, \omega_{o}) = L_{e}(p, \omega_{o}) + \int_{\Omega^{+}}^{}L_{i}(p, \omega_{i})f_{r}(p, \omega_{i}, \omega_{o})\cos\theta_{i}{d\omega_{i}}$$
+            <div>Where:</div>
+            <ul>
+                <li>
+                    <span class="math">\(L_{o}(p, \omega_{o})\)</span> :
+                    <span class="text">The radiance in the outgoing direction \(\omega_{o}\) for the shading point p</span>
+                </li>
+                <li>
+                    <span class="math">\(L_{e}(p, \omega_{o})\)</span> :
+                    <span class="text">Emitted radiance term (Self-emission)</span>
+                </li>
+                <li>
+                    <span class="math">\({\Omega^{+}}\)</span> :
+                    <span class="text">Integration domain, integrating only over the upper hemisphere of the surface</span>
+                </li>
+                <li>
+                    <span class="math">\(L_{i}(p,\omega_{i})\)</span> : 
+                    <span class="text">Lighting, the radiance from a specific incoming direction \(\omega_{i}\)</span>
+                </li>
+                <li>
+                    <span class="math">\(f_{r}(p, \omega_{i}, \omega_{o})\)</span> :
+                    <span class="text">BRDF, describing the contribution of light from a specific incoming direction to the outgoing direction.</span>
+                </li>
+                <li>
+                    <span class="math">\(\cos\theta_{i}\)</span> : 
+                    <span class="text">The cosine of the angle between the surface normal and a specific incoming direction</span>
+                </li>
+            </ul>
+            The core philosophy relies on solving the classic rendering equation by pre-baking the transport visibility factors of the scene geometry. This breaks down the complex runtime integral into a simple vector dot product.
+        </p>
+    </section>
+
+    <section style="margin-bottom: 25px;">
+        <h2>Split Sum Approximation</h2>
+        <p>Similar to the Image-Based Lighting (IBL) approach in PBR pipelines, the integral is decoupled using the Split Sum approximation, separating the environment lighting from the BRDF response function.</p>
+    </section>
+
+    <section style="margin-bottom: 25px;">
+        <h2>Spherical Harmonics (SH)</h2>
+        <p>We project both the lighting environment and the geometric transfer function into Spherical Harmonics basis coefficients. Thanks to the linear rotation property of SH, we can achieve real-time dynamic light rotation seamlessly on the GPU.</p>
+    </section>
+
+    </p>
+</div>
+
+<div class="lang-zh">
+    <p>  
+    <a href="Games202/HW2/index.html" target="_blank" rel="noopener noreferrer">
+        <img src="assets/GAMES202_Homework2.png" alt="GAMES202_Homework2" title="GAMES202_Homework2" style="max-width: 100%; height: auto;">
+    </a>
+    </p>
+</div>
