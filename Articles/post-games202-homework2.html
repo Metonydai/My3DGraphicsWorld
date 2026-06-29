@@ -1,13 +1,16 @@
 <div class="lang-en">
     <p>  
-    <a href="Games202/HW2/index.html" target="_blank" rel="noopener noreferrer">
+    <a href="Games202/Assignment2/HW2/index.html" target="_blank" rel="noopener noreferrer">
         <img src="assets/GAMES202_Homework2.png" alt="GAMES202_Homework2" title="GAMES202_Homework2" style="max-width: 100%; height: auto;">
     </a>
+    <div class="click-hint">Click the above image to view the live 3D rendering results &uarr;</div>
     <h2>WebGL Precomputed Radiance Transfer (PRT)</h2>
     
     <section style="margin-bottom: 25px;">
         <h2>Introduction</h2>
-        <p>In this project, we implemented a real-time shading system based on Precomputed Radiance Transfer (PRT). This technique allows us to achieve realistic soft shadows and global illumination from low-frequency environment lighting at interactive frame rates.</p>
+        <p>
+            This project implements a real-time Precomputed Radiance Transfer (PRT) rendering pipeline. Leveraging Nori to precompute environment cubemap lighting and mesh transport data into Spherical Harmonics coefficients, it achieves dynamic, high-fidelity real-time global illumination and soft shadowing for complex OBJ models directly within a WebGL frame.
+        </p>
     </section>
 
     <section style="margin-bottom: 25px;">
@@ -46,21 +49,64 @@
     </section>
 
     <section style="margin-bottom: 25px;">
-        <h2>Split Sum Approximation</h2>
-        <p>Similar to the Image-Based Lighting (IBL) approach in PBR pipelines, the integral is decoupled using the Split Sum approximation, separating the environment lighting from the BRDF response function.</p>
+        <h2>Spherical Harmonics (SH)</h2>
+        <p>
+            <img src="assets/GAMES202_HW2_SH.png" alt="Spherical Harmonics" title="Spherical Harmonics" style="max-width: 100%; height: auto;">
+            Basis function: A set of mutually independent basis whose projection onto one other is zero.<br>
+            Given any function \(f(x)\), which can be represented as linear combination of sph basis function.
+            $$
+            \begin{aligned}
+            f(x) &= \sum_{l=0}^{\infty} \sum_{m=-l}^{l} c_l^m \cdot Y_l^m(\omega_i) \\
+            &= c_0^0 Y_0^0(\omega_i) + c_{-1}^1 Y_{-1}^1(\omega_i) + c_0^1 Y_0^1(\omega_i) + \dots
+            \end{aligned}
+            $$
+            For low-frequency functions, approximating with only the first few terms can yield adequate results. If the BRDF is rough, it acts as a low-pass filter.
+
+        </p>
     </section>
 
     <section style="margin-bottom: 25px;">
-        <h2>Spherical Harmonics (SH)</h2>
-        <p>We project both the lighting environment and the geometric transfer function into Spherical Harmonics basis coefficients. Thanks to the linear rotation property of SH, we can achieve real-time dynamic light rotation seamlessly on the GPU.</p>
+        <h2>PRT (Precomputed Radiance Transfer)</h2>
+        <p>
+            Spherical harmonics use a set of basis functions to fit the Lighting term in the rendering equation. If shadowing is required, a visibility term \(V(p, \omega_i)\)
+            needs to be added:
+            $$L_o(p, \omega_o) = \int_{\Omega^{+}} \underbrace{L_i(p, \omega_i)}_{\text{Lighting}} \underbrace{f_r(p, \omega_i, \omega_o)}_{\text{BRDF}} \underbrace{V(p, \omega_i)}_{\text{Visibility}} \max(0, \cos \theta_i) \, d\omega_i$$
+            In 2002, Sloan proposed PRT (Precomputed Radiance Transfer), which divides the interior of the integral into two parts: Lighting and Light Transport:
+            $$L_o(p, \omega_o) = \int_{\Omega^{+}} \underbrace{L_i(p, \omega_i)}_{\text{Lighting}} \underbrace{f_r(p, \omega_i, \omega_o) V(p, \omega_i) \max(0, \cos \theta_i)}_{\text{Light Transport}} \, d\omega_i$$
+            Assuming the BRDF term is diffuse, the BRDF term becomes a constant \(\frac{\rho}{\pi}\). By representing Lighting in the form of coefficients and basis functions, and then swapping the order of integration and summation, the interior of the integral can once again be expressed as a projection onto the basis functions:
+
+            $$
+            \begin{aligned}
+            L(p, \omega_o) &= \frac{\rho}{\pi} \int_{\Omega^{+}} \sum l_i B_i(\omega_i) V(p, \omega_i) \max(0, \cos \theta_i) \, d\omega_i \\
+            &\approx \frac{\rho}{\pi} \sum l_i \underbrace{\int_{\Omega^{+}} B_i(\omega_i) V(p, \omega_i) \max(0, \cos \theta_i) \, d\omega_i}_{\text{Precomputed}} \\
+            &= \frac{\rho}{\pi} \sum l_i T_i
+            \end{aligned}
+            $$
+
+            Where \(l_i\) is a set of coefficients from projecting the Lighting term onto the basis functions, and \(T_i\) is the coefficient from projecting the Light Transport term onto the basis functions. This transforms the integral of the product of multiple functions into a simple dot product.However, these precomputations require a few prerequisites:
+            <ul>
+                <li>
+                    Visibility is fixed: This requires that objects within the scene cannot move.
+                </li>
+                <li>
+                    Lighting is "fixed": The components of the lighting cannot change dynamically, though the lighting itself can be rotated (which corresponds to rotating the linear space spanned by the basis functions).
+                </li>
+            </ul>
+            This is highly reasonable, just like how baked lighting information is inherently static.
+            
+        </p>
     </section>
+
+    <a class="source-link" href="https://github.com/your-username/your-repo" target="_blank" rel="noopener noreferrer">
+        View Source Code on GitHub &rarr;
+    </a>
 
     </p>
 </div>
 
 <div class="lang-zh">
     <p>  
-    <a href="Games202/HW2/index.html" target="_blank" rel="noopener noreferrer">
+    <a href="https://github.com/Metonydai/My3DGraphicsWorld/tree/master/Games202/Assignment2" target="_blank" rel="noopener noreferrer">
         <img src="assets/GAMES202_Homework2.png" alt="GAMES202_Homework2" title="GAMES202_Homework2" style="max-width: 100%; height: auto;">
     </a>
     </p>

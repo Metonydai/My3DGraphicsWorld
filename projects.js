@@ -6,7 +6,7 @@ const CURRENT_LANG = 'en';
 var GLOBAL_PROJECTS = [
     {
         id: "games202-homework2",
-        date: "2026-06-25",
+        date: "2026-06-29",
         featured: true,
         imgText: "games202-homework2",
         imgSrc: "assets/GAMES202_Homework2.png",
@@ -15,8 +15,8 @@ var GLOBAL_PROJECTS = [
             zh: "Games202-homework2-PRT"
         },
         description: {
-            en: "PRT-",
-            zh: "PRT-"
+            en: "This project implements a real-time Precomputed Radiance Transfer (PRT) rendering pipeline. Leveraging Nori to precompute environment cubemap lighting and mesh transport data into Spherical Harmonics coefficients, it achieves dynamic, high-fidelity real-time global illumination and soft shadowing for complex OBJ models directly within a WebGL frame.",
+            zh: "本項目實現了一個PRT渲染管線。利用 Nori 預計算Cubemap光源與Transfrer項，並將其轉化為球諧函數（Spherical Harmonics）係數，從而直接在 WebGL 框架內，為複雜的 OBJ 模型實現動態、高保真的即時全域照明（Global Illumination）與軟陰影效果。"
         },
         category: {
             en: "GAMES202",
